@@ -1,0 +1,7 @@
+FROM node:lts-buster
+RUN mkdir /code
+WORKDIR /code
+RUN npm install -g nodemon
+COPY package.json /code/
+RUN npm install
+
