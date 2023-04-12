@@ -8,10 +8,12 @@ app.use(express.urlencoded({extended: true}));
 /**
  * Routes.
  */
-const usersRouter = require('./routes/users');
+const foodsRouter = require('./routes/foods');
+const ingredientsRouter = require('./routes/ingredients');
 
 // Add this after the middleware part
-app.use('/api/v1', usersRouter);
+app.use('/api/v1', foodsRouter);
+app.use('/api/v1', ingredientsRouter);
 
 
 function onStart(){

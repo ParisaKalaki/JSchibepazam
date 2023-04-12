@@ -13,8 +13,7 @@ module.exports = {
      * }], {});
     */
     await queryInterface.bulkInsert('Food', [{
-      name: 'ghorme sabzi',
-      
+      name: 'ghorme sabzi'
     }], {});
   },
 
