@@ -11,4 +11,6 @@ router.route('/foods/:foodId')
     .delete(FoodController.deleteFood)  // to delete resources
     .patch(()=>{}); // to make partial update on a resource
 
+router.route('/foods/:foodId/ingredients/:ingredientId')
+    .post(FoodController.addIngredienttoFood)
 module.exports = router;

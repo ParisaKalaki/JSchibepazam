@@ -1,13 +1,32 @@
 const foodController ={};
 const { Food, Ingredient } = require('../models')
+const mamad = require('./ingredient-controller.js')
 
 function findOne(id) {
     return Food.findOne({
         where: {
             id
+        },
+        include: Ingredient
+        
+    });
+}
+function findOneing(id) {
+    return Ingredient.findOne({
+        where: {
+            id
         }
     });
 }
+// var id = 3;
+// var ingr = (function(id) {
+//     return Ingredient.findOne({
+//         where: {
+//             id
+//         }
+//     });
+// })();  
+
 
 foodController.createFood = (req, res, next) => {
     Food.create(req.body).then( u =>res.json(u))
@@ -63,5 +82,34 @@ foodController.deleteFood = (req, res, next) => {
         }
     }).catch(next);
 };
+foodController.addIngredienttoFood = async (req, res, next) => {
+    const food_id = req.params.foodId;
+    const ingredient_id = req.params.ingredientId;
+
+    const ingredient = await findOneing(ingredient_id);
+
+    findOne(food_id).then(food => {
+        console.log(food);
+        if(food){
+             food.addIngredient(ingredient).then(food => res.json(food)).catch(next);
+        } else {
+            res.status(404).send();
+        }
+    }).catch(next);
+    // let foodId = 1;
+    // let ingredientId=3;
+    // const bar1 = await Ingredient.create
+    // console.log(mamad.getbyid(ingredientId));
+    // findOne(foodId).then(food => {
+    //     if (food){
+    //         food.addIngredient(Ingredient).then(food => res.json(food)).catch(next);
+    //     }
+    //     else {
+    //         res.status(404).send();
+    //     }
+    // }).catch(next);
+
+}
+
 
 module.exports = foodController;

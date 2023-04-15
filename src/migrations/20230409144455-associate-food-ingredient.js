@@ -10,7 +10,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     return queryInterface.createTable(
-      'foodIngredient',
+      'foodIngredients',
       {
         createdAt: {
           allowNull: false,
@@ -28,13 +28,17 @@ module.exports = {
             model: 'Food',
             key: 'id',
           },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
         ingredientId: {
           type: Sequelize.INTEGER,
           references: {
             model: 'Ingredient',
             key: 'id',
-          }
+          },
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
         },
       }
     );

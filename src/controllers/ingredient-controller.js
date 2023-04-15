@@ -20,6 +20,7 @@ ingredientController.get = (req, res, next) => {
     }).catch(next);
 };
 
+
 ingredientController.getIngredient = (req, res, next) => {
     const id = req.params.ingredientId;
     findOne(id).then(ingredient => {

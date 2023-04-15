@@ -12,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('foodIngredient', [{
+    await queryInterface.bulkInsert('foodIngredients', [{
          foodId: 1,
          ingredientId: 1
        }], {});

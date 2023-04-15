@@ -22,6 +22,7 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('now')
       }
+
     });
   },
   async down(queryInterface, Sequelize) {

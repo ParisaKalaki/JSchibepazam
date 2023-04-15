@@ -9,11 +9,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    freezeTableName: true,
   },
-  {
-    freezeTableName: true,
-  }
+  
   );
 
   return foodIngredient;
