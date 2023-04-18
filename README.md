@@ -11,10 +11,10 @@ Is a modern web application based on Express.js and Sequelize to provide a REST 
 
 - [x] Create a frontend with React to fetch data from the backend.
 
-- [] Add a health check endpoint to `/healthz`.
+- [ ] Add a health check endpoint to `/healthz`.
 
-- [] Add authentication headers for posting data to authorize.
+- [ ] Add authentication headers for posting data to authorize.
 
-- [] Queueing incoming requests using a queueing system.
+- [ ] Queueing incoming requests using a queueing system.
 
-- [] Store authentication tokens and data that have recently been requested.
+- [ ] Store authentication tokens and data that have recently been requested.
