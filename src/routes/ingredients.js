@@ -10,7 +10,6 @@ router.route('/ingredients/:ingredientId')
     .put(IngredientController.editIngredient) // to update existing resource
     .delete(IngredientController.deleteIngredient)  // to delete resources
     .patch(()=>{}); // to make partial update on a resource
-
     
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const foodController ={};
 const { Food, Ingredient } = require('../models')
-const mamad = require('./ingredient-controller.js')
+const { Sequelize } = require('sequelize');
+
 
 function findOne(id) {
     return Food.findOne({
@@ -18,14 +19,6 @@ function findOneing(id) {
         }
     });
 }
-// var id = 3;
-// var ingr = (function(id) {
-//     return Ingredient.findOne({
-//         where: {
-//             id
-//         }
-//     });
-// })();  
 
 
 foodController.createFood = (req, res, next) => {
@@ -96,20 +89,44 @@ foodController.addIngredienttoFood = async (req, res, next) => {
             res.status(404).send();
         }
     }).catch(next);
-    // let foodId = 1;
-    // let ingredientId=3;
-    // const bar1 = await Ingredient.create
-    // console.log(mamad.getbyid(ingredientId));
-    // findOne(foodId).then(food => {
-    //     if (food){
-    //         food.addIngredient(Ingredient).then(food => res.json(food)).catch(next);
-    //     }
-    //     else {
-    //         res.status(404).send();
-    //     }
-    // }).catch(next);
-
 }
 
+foodController.findFoodsByIngredients = (req, res, next) => {
+    const ingredientIds = req.body.ingredientIds;
+    Food.findAll({
+        include: [{
+            model: Ingredient,
+            attributes: [],
+            through: {
+                attributes: []
+              },
+            where: { id: ingredientIds }, // Filter ingredients by given ingredientIds
+          }], 
+        group: ['Food.id'], 
+        having: Sequelize.literal(`COUNT(*) >= ${ingredientIds.length}`), // Filter foods with ingredient count <= ingredientIds.length
+
+    }).then(foods => {
+        res.json(foods)
+    }).catch(next);
+    //   const ingredientIds = req.body.ingredientIds;
+    //   console.log(ingredientIds);
+    //   Food.findAll({
+    //     include: [
+    //       {
+    //         model: Ingredient,
+    //         through: { attributes: ['name'] }, // Exclude junction table attributes
+    //         //where: { id: ingredientIds }, // Filter ingredients by given ingredientIds
+    //       },
+    //     ],
+    //     //group: ['Food.id'],
+    //    // having: Sequelize.where(Sequelize.fn('COUNT', Sequelize.col('Ingredients.id')), '<=', ingredientIds.length),
+    //    // having: Sequelize.literal(`COUNT(*) <= ${ingredientIds.length}`), // Filter foods with ingredient count <= ingredientIds.length
+    //   }).then(foods => {
+    //     res.json(foods)
+    // }).catch(next);
+ 
+
+};
+   
 
 module.exports = foodController;

@@ -3,7 +3,7 @@ const FoodController = require('../controllers/food-controller');
 
 router.route('/foods')
     .post(FoodController.createFood) // to create new subordinate resources
-    .get(FoodController.get); // to retrieve resource representation/information only
+    .get(FoodController.get) // to retrieve resource representation/information only
 
 router.route('/foods/:foodId')
     .get(FoodController.getFood) // to retrieve resource representation/information only
@@ -13,4 +13,9 @@ router.route('/foods/:foodId')
 
 router.route('/foods/:foodId/ingredients/:ingredientId')
     .post(FoodController.addIngredienttoFood)
+
+router.route('/foods/foodingredient')
+    .post(FoodController.findFoodsByIngredients);
+
+    
 module.exports = router;

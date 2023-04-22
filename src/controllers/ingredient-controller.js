@@ -1,6 +1,8 @@
 const ingredientController ={};
 const { Food, Ingredient } = require('../models');
 
+
+
 function findOne(id) {
     return Ingredient.findOne({
         where: {
@@ -56,5 +58,8 @@ ingredientController.deleteIngredient = (req, res, next) => {
         }
     }).catch(next);
 };
+
+
+
 
 module.exports = ingredientController;

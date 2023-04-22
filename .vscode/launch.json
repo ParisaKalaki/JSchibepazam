@@ -12,6 +12,14 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/src/index.js"
-        }
+        },
+        {
+            "name": "Run Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3001",
+            "webRoot": "${workspaceFolder}/frontend/src",
+            "runtimeArgs": ["--disable-web-security"]
+          }
     ]
 }
