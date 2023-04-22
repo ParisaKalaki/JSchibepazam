@@ -1,0 +1,69 @@
+/* Main container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Heading styles */
+  h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Checkbox styles */
+  .checkbox {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .checkbox label {
+    font-size: 16px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .checkbox input[type="checkbox"] {
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  
+  /* Submit button styles */
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0062cc;
+  }
+  
+  /* Results section styles */
+  .results {
+    margin-top: 20px;
+  }
+  
+  .results h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .results ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .results li {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
