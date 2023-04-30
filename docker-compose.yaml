@@ -28,5 +28,17 @@ services:
       ports:
       - "3000:3000"
       depends_on:
-      - pgdatabase      
+      - pgdatabase  
+
+  s3:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9090:9090"
+    volumes:
+      - ./minio:/data
+    environment:
+      MINIO_ACCESS_KEY: root
+      MINIO_SECRET_KEY: root12345678
+    command: server --address 0.0.0.0:9000 /data --console-address ":9090"        
       
