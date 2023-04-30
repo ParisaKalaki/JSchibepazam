@@ -12,6 +12,22 @@ function findOne(id) {
         
     });
 }
+
+foodController.getFoodIngredient = (req, res, next) =>{
+    const id = 4;
+    f = findOne(4)
+    console.log(f)
+    // findOne(id).then(food => {
+    //     if(food){
+    //         console.log(food.getIngredients())
+
+    //         res.json(food.getIngredients())
+    //     } else {
+    //         res.status(404).send();
+    //     }
+    // }).catch(next);
+
+}
 function findOneing(id) {
     return Ingredient.findOne({
         where: {
@@ -96,7 +112,7 @@ foodController.findFoodsByIngredients = (req, res, next) => {
     Food.findAll({
         include: [{
             model: Ingredient,
-            attributes: [],
+            attributes: [ ],
             through: {
                 attributes: []
               },
@@ -107,7 +123,10 @@ foodController.findFoodsByIngredients = (req, res, next) => {
 
     }).then(foods => {
         res.json(foods)
+        console.log(foods)
+
     }).catch(next);
+
     //   const ingredientIds = req.body.ingredientIds;
     //   console.log(ingredientIds);
     //   Food.findAll({

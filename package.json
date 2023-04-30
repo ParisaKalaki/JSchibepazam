@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/ParisaKalaki/JSchibepazam#readme",
   "dependencies": {
+    "aws-sdk": "^2.1368.0",
     "express": "^4.18.2",
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
@@ -30,15 +31,14 @@
   "devDependencies": {
     "sequelize-cli": "^6.6.0"
   },
-    "husky": {
-       "hooks": {
-         "pre-commit": "lint-staged"
-        }
-      },
-      "lint-staged": {
-          "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-             "prettier --write"
-           ]
-         }
-  
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  }
 }

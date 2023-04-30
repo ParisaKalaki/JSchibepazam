@@ -15,7 +15,8 @@ router.route('/foods/:foodId/ingredients/:ingredientId')
     .post(FoodController.addIngredienttoFood)
 
 router.route('/foods/foodingredient')
-    .post(FoodController.findFoodsByIngredients);
+    .post(FoodController.findFoodsByIngredients)
+    .get(FoodController.getFoodIngredient);
 
     
 module.exports = router;

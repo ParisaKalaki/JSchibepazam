@@ -10,10 +10,14 @@ app.use(express.urlencoded({extended: true}));
  */
 const foodsRouter = require('./routes/foods');
 const ingredientsRouter = require('./routes/ingredients');
+const imagesRouter = require('./routes/image');
+
 
 // Add this after the middleware part
 app.use('/api/v1', foodsRouter);
 app.use('/api/v1', ingredientsRouter);
+app.use('/api/v1', imagesRouter);
+
 
 
 function onStart(){
