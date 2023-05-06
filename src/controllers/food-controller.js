@@ -1,6 +1,15 @@
-const foodController ={};
+const dotenv = require('dotenv')
+
+const foodController ={}
+
+const crypto = require('crypto')
+const sharp = require('sharp')
+const { S3Client, PutObjectCommand, GetObjectCommand} = require("@aws-sdk/client-s3")
+
 const { Food, Ingredient } = require('../models')
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require('sequelize')
+var Op = Sequelize.Op;
+
 
 
 function findOne(id) {
@@ -82,7 +91,6 @@ foodController.addIngredienttoFood = async (req, res, next) => {
     const ingredient = await findOneing(ingredient_id);
 
     findOne(food_id).then(food => {
-        console.log(food);
         if(food){
              food.addIngredient(ingredient).then(food => res.json(food)).catch(next);
         } else {
@@ -105,28 +113,62 @@ foodController.findFoodsByIngredients = (req, res, next) => {
         group: ['Food.id'], 
         having: Sequelize.literal(`COUNT(*) >= ${ingredientIds.length}`), // Filter foods with ingredient count <= ingredientIds.length
 
-    }).then(foods => {
-        res.json(foods)
+    }).then(async foods => {
+        const result = await foods.map(x => x.id);
+        Food.findAll({
+            where:{  id: {[Op.in]: result}},
+            include: Ingredient
+        }).then(selectedfoods =>{
+        res.json(selectedfoods)
+    })
     }).catch(next);
-    //   const ingredientIds = req.body.ingredientIds;
-    //   console.log(ingredientIds);
-    //   Food.findAll({
-    //     include: [
-    //       {
-    //         model: Ingredient,
-    //         through: { attributes: ['name'] }, // Exclude junction table attributes
-    //         //where: { id: ingredientIds }, // Filter ingredients by given ingredientIds
-    //       },
-    //     ],
-    //     //group: ['Food.id'],
-    //    // having: Sequelize.where(Sequelize.fn('COUNT', Sequelize.col('Ingredients.id')), '<=', ingredientIds.length),
-    //    // having: Sequelize.literal(`COUNT(*) <= ${ingredientIds.length}`), // Filter foods with ingredient count <= ingredientIds.length
-    //   }).then(foods => {
-    //     res.json(foods)
-    // }).catch(next);
- 
-
 };
    
+foodController.uploadImage = async (req, res, next) =>  {
+    const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
+    const file = req.file 
+    const fileBuffer = await sharp(file.buffer)
+    .resize({ height: 1920, width: 1080, fit: "contain" })
+    .toBuffer()
 
+    dotenv.config()
+    
+    const bucketName = process.env.AWS_BUCKET_NAME
+    const region = process.env.AWS_BUCKET_REGION
+    const accessKeyId = process.env.AWS_ACCESS_KEY
+    const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY
+    const endpoint = process.env.AWS_ENDPOINT
+
+    const s3Client = new S3Client({
+        region,
+        credentials: {
+            accessKeyId,
+            secretAccessKey
+        },
+        endpoint
+    })
+    
+    const fileName = generateFileName()
+    const uploadParams = {
+      Bucket: bucketName,
+      Body: fileBuffer,
+      Key: fileName,
+      ContentType: file.mimetype
+    }
+    
+// Send the upload to S3
+await s3Client.send(new PutObjectCommand(uploadParams));
+
+const id = req.params.foodId
+    findOne(id).then(food => {
+        if (food) {
+            food.update({
+                image: fileName,
+            })
+            food.save().then(food => res.json(food)).catch(next);
+        }else {
+            res.status(404).send();
+        }
+    }).catch(next);
+}
 module.exports = foodController;

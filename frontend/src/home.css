@@ -24,10 +24,13 @@
   }
   .submit-button {
     margin-left: 10px;
-    font-size: 1.3em;
-    line-height: 1.2;
-    color: #762e7c;
+    font-size: 1.2em;
+    line-height: 1.4;
     border-color: #762e7c;
+    font-family: "Karla", sans-serif;
+    border-radius: 6px;
+    background: linear-gradient(90.41deg, #711F8D 1.14%, #A818DA 100%);
+    color: white;
 
   }
   .react-tags {

@@ -11,7 +11,15 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/src/index.js"
+            "program": "${workspaceFolder}/src/index.js",
+            "env": {
+                "AWS_BUCKET_NAME": "chibepazam",
+                "AWS_BUCKET_REGION": "eu-central-1",
+                "AWS_ACCESS_KEY": "root",
+                "AWS_SECRET_ACCESS_KEY": "root12345678",
+                "AWS_ENDPOINT": "http://127.0.0.1:9000"
+              }
+
         },
         {
             "name": "Run Chrome",

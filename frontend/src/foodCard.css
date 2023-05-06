@@ -1,4 +1,4 @@
-.foods-container{
+.cards-list{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -15,7 +15,7 @@
     padding-bottom: 20px;
     background-color: white;
 }
-.contact-card > img {
+.food-card > img {
     width: 100%;
     height: auto;
     align-self: center;
@@ -23,8 +23,15 @@
     object-fit: cover;
 }
 
-
-.food-card > h3 {
+.food-card > h3,h4 {
     font-weight: 700;
     font-size: 18px;
+    margin-bottom: 0;
+
+}
+
+.food-image {
+    width: 100%;
+    border-radius: 9px;
+    margin-bottom: 9px;
 }

@@ -12,6 +12,9 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
+      image: {
+        type: Sequelize.STRING(64)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

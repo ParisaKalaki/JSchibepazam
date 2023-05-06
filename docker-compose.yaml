@@ -17,18 +17,18 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=root
     ports:
       - "8080:80"
-  web:
-      build: 
-        context: .
-        dockerfile: Dockerfile.dev
-      command: npm run serve
-      container_name: express_web
-      volumes:
-      - .:/code
-      ports:
-      - "3000:3000"
-      depends_on:
-      - pgdatabase  
+  # web:
+  #     build: 
+  #       context: .
+  #       dockerfile: Dockerfile.dev
+  #     command: npm run serve
+  #     container_name: express_web
+  #     volumes:
+  #     - .:/code
+  #     ports:
+  #     - "3000:3000"
+  #     depends_on:
+  #     - pgdatabase  
 
   s3:
     image: minio/minio

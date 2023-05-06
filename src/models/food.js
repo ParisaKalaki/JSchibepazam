@@ -5,6 +5,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
+    image: {
+      type: DataTypes.STRING(64),
+      allowNull: true
+    },
   },
   {
     freezeTableName: true,

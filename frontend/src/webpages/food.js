@@ -7,12 +7,17 @@ import '../foodCard.css'; // import the CSS file
 const Food = () => {
      const location = useLocation();
      const { foods } = location.state;
+     const cards = foods.map(food => {
+      console.log(food.Ingredients)
+      return (
+        <FoodCard key={food.id} food={food} Ingredients={food.Ingredients} image={food.image} />
+      )
+  })        
     return (
-        <div className="foods-container">
-        {foods.map((food) => (
-          <FoodCard key={food.id} food={food} />
-        ))}
-      </div>
+      <section className="cards-list">
+      {cards}
+     </section>
+       
       );
 }
 export default Food;
