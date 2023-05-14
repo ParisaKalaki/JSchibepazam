@@ -14,7 +14,7 @@ router.route('/foods/:foodId')
     .delete(FoodController.deleteFood)  // to delete resources
     .patch(()=>{}); // to make partial update on a resource
 
-router.route('/foods/:foodId/image')
+router.route('/image/:foodId')
     .post(upload.single('image'), FoodController.uploadImage)
 
 router.route('/foods/:foodId/ingredients/:ingredientId')
@@ -23,7 +23,5 @@ router.route('/foods/:foodId/ingredients/:ingredientId')
 router.route('/foods/foodingredient')
     .post(FoodController.findFoodsByIngredients);
 
-router.route('/foods/image')
-    .post(FoodController.uploadImage);
    
 module.exports = router;

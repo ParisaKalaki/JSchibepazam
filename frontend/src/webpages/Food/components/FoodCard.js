@@ -1,5 +1,5 @@
 import React from 'react';
-import '../foodCard.css'; // import the CSS file
+import '../../../foodCard.css'; // import the CSS file
 // import * as dotenv from 'dotenv'
 
 // dotenv.config()

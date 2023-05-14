@@ -6,8 +6,8 @@ import {
   Link,
   Routes
 } from "react-router-dom";
-import Home from './home';
-import Food from './food';
+import Home from './Home';
+import Food from './Food/Food';
 const Webpages = () => {
     return(
         <BrowserRouter>

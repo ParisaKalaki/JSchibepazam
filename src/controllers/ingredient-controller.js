@@ -11,7 +11,13 @@ function findOne(id) {
     });
 }
 
-ingredientController.createIngredient = (req, res, next) => {
+ingredientController.createIngredient = async (req, res, next) => {
+     // Check if ingredient with the same name already exists
+     const ingredient = await Ingredient.findOne({ where: { name: req.body.name } });
+     console.log(ingredient)
+     if (ingredient) {
+         return res.json(ingredient); // Return existing ingredient
+     }
     Ingredient.create(req.body).then( u =>res.json(u))
         .catch(next);
 };
@@ -58,8 +64,5 @@ ingredientController.deleteIngredient = (req, res, next) => {
         }
     }).catch(next);
 };
-
-
-
 
 module.exports = ingredientController;

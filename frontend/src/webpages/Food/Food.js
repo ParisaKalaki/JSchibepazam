@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import FoodCard from './foodCard';
-import '../foodCard.css'; // import the CSS file
+import FoodCard from './components/FoodCard';
+//import '../../foodCard.css'; // import the CSS file
 
 
 const Food = () => {

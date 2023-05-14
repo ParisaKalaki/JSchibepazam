@@ -30,7 +30,12 @@ function findOneing(id) {
 }
 
 
-foodController.createFood = (req, res, next) => {
+foodController.createFood = async (req, res, next) => {
+    const food = await Food.findOne({ where: { name: req.body.name } });
+    console.log(food)
+    if (food) {
+        return res.json(food); // Return existing ingredient
+    }
     Food.create(req.body).then( u =>res.json(u))
         .catch(next);
 };
@@ -39,12 +44,13 @@ foodController.get = (req, res, next) => {
     Food.findAll({
         include: [{
             model: Ingredient,
-            attributes: ['name'],
+            attributes: [],
             through: {
                 attributes: []
               }
           }],   
     }).then(foods => {
+        res.setHeader('X-Total-Count', Object.keys(foods).length);
         res.json(foods)
     }).catch(next);
 };
@@ -128,7 +134,7 @@ foodController.uploadImage = async (req, res, next) =>  {
     const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
     const file = req.file 
     const fileBuffer = await sharp(file.buffer)
-    .resize({ height: 1920, width: 1080, fit: "contain" })
+    .resize({ height: 1400, width: 1080, fit: "fill" })
     .toBuffer()
 
     dotenv.config()
@@ -171,4 +177,5 @@ const id = req.params.foodId
         }
     }).catch(next);
 }
+
 module.exports = foodController;
