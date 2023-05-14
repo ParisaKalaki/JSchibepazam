@@ -1,14 +1,20 @@
 /* Main container */
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
+.main {
+  margin-top: 40px;
+  margin-left: 25px;
+  margin-right: 25px;
+  /* max-width: 800px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
   body{
-    margin: 0% 8%;
-    padding-top: 6rem;
     background-color: #e06cf094;
-    background-size: 40px 40px, 40px 40px, 20px 20px, 20px 20px;
+    background-size: 40px 40px, 40px 40px, 20px 20px, 20px 20px;  
+
+    
 }
   
   /* Heading styles */
@@ -17,8 +23,11 @@
     font-weight: bold;
     margin-bottom: 20px;
     color: #762e7c;
+
   }
   .tag-bar-container{
+
+    width: 800px;
     display: flex;
     align-items: center;
   }

@@ -6,16 +6,16 @@ import {
   Link,
   Routes
 } from "react-router-dom";
-import Home from './Home';
-import Food from './Food/Food';
+import Main from './Main';
+import Food from './food/Food';
 const Webpages = () => {
     return(
-        <BrowserRouter>
+        <React.StrictMode>
         <Routes>
-            <Route exact path="/" element= {<Home/>} />
+            <Route exact path="/" element= {<Main/>} />
             <Route path = "/food" element = {<Food/>} />
         </Routes>
-        </BrowserRouter>
+        </React.StrictMode>
         
     );
 };

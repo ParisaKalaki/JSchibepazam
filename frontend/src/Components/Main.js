@@ -1,10 +1,11 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { ReactTags } from 'react-tag-autocomplete'
-import '../home.css'; // import the CSS file
+import '../Main.css'; // import the CSS file
 import { useNavigate } from "react-router-dom";
+import Navbar from "./common/Navbar"
 
 
-const Home = () => {
+const Main = () => {
   const [selectedIngredients, setSelectedIngredients] = useState([])
   const [ingredients, setIngredients] = useState([]); // state to store the fetched ingredients
   const [foods, setFoods] = useState([]);
@@ -69,6 +70,7 @@ const Home = () => {
             // Update component state with fetched data
             setFoods(data);
             navigate('/food', { state: { foods: data } });
+            console.log(data)
           })
           .catch(error => {
             // Handle error
@@ -77,7 +79,9 @@ const Home = () => {
         };
  
   return (
-    <>
+  <>
+    <Navbar />
+    <div className="main">
       <h1> Select the ingredients:</h1>
       <div className='tag-bar-container'>
       <ReactTags
@@ -92,8 +96,8 @@ const Home = () => {
           Search
           </button>
         </div>
- </>
-    
+ </div>
+</>  
   )
 }
-export default Home;
+export default Main;

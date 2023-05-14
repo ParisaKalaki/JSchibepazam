@@ -6,6 +6,7 @@
 }
 
 .food-card {
+    margin-top: 20px;
     flex-basis: 225px;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
     border-radius: 10px;

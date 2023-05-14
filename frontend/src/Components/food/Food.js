@@ -1,7 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import FoodCard from './components/FoodCard';
-//import '../../foodCard.css'; // import the CSS file
+import Navbar from "../common/Navbar"
+
 
 
 const Food = () => {
@@ -14,10 +15,12 @@ const Food = () => {
       )
   })        
     return (
+      <>
+      <Navbar />
       <section className="cards-list">
       {cards}
      </section>
-       
+     </>
       );
 }
 export default Food;

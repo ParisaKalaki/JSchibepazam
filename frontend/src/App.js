@@ -1,5 +1,7 @@
 import React from 'react';
-import Webpages from './webpages';
+import Webpages from "./Components/index"
+import './Main.css'; // import the CSS file
+
 
 function App() {
   return (
