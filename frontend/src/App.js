@@ -1,5 +1,5 @@
 import React from 'react';
-import Webpages from "./Components/index"
+import Webpages from "./Webpages/index"
 import './Main.css'; // import the CSS file
 
 

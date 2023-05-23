@@ -162,20 +162,20 @@ foodController.uploadImage = async (req, res, next) =>  {
       ContentType: file.mimetype
     }
     
-// Send the upload to S3
-await s3Client.send(new PutObjectCommand(uploadParams));
+    // Send the upload to S3
+    await s3Client.send(new PutObjectCommand(uploadParams));
 
-const id = req.params.foodId
-    findOne(id).then(food => {
-        if (food) {
-            food.update({
-                image: fileName,
-            })
-            food.save().then(food => res.json(food)).catch(next);
-        }else {
-            res.status(404).send();
-        }
-    }).catch(next);
-}
+    const id = req.params.foodId
+        findOne(id).then(food => {
+            if (food) {
+                food.update({
+                    image: fileName,
+                })
+                food.save().then(food => res.json(food)).catch(next);
+            }else {
+                res.status(404).send();
+            }
+        }).catch(next);
+    }
 
-module.exports = foodController;
+    module.exports = foodController;
