@@ -19,6 +19,8 @@ router.route('/image/:foodId')
 
 router.route('/foods/:foodId/ingredients/:ingredientId')
     .post(FoodController.addIngredienttoFood)
+    .put(FoodController.addManyIngredientstoFood)
+    .delete(FoodController.removeIngredientsFromFood)
 
 router.route('/foods/foodingredient')
     .post(FoodController.findFoodsByIngredients);

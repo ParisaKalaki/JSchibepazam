@@ -28,6 +28,13 @@ function findOneing(id) {
         }
     });
 }
+function findManying(ids) {
+    return Ingredient.findAll({
+        where: {
+              id: {[Op.in]: ids},
+        }
+    });
+}
 
 
 foodController.createFood = async (req, res, next) => {
@@ -36,7 +43,8 @@ foodController.createFood = async (req, res, next) => {
     if (food) {
         return res.json(food); // Return existing ingredient
     }
-    Food.create(req.body).then( u =>res.json(u))
+    Food.create(req.body).then( foods =>{
+        res.json(foods)})
         .catch(next);
 };
 
@@ -44,13 +52,17 @@ foodController.get = (req, res, next) => {
     Food.findAll({
         include: [{
             model: Ingredient,
-            attributes: [],
+            attributes: ['id', 'name'],
             through: {
                 attributes: []
               }
           }],   
     }).then(foods => {
-        res.setHeader('X-Total-Count', Object.keys(foods).length);
+        const count = foods.length; // Get the actual count of items
+        const range = `0-${count - 1}/*`; // Calculate the range
+  
+        res.setHeader('Content-Range', `bytes ${range}`); // Set the Content-Range header
+        res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
         res.json(foods)
     }).catch(next);
 };
@@ -66,13 +78,18 @@ foodController.getFood = (req, res, next) => {
     }).catch(next);
 };
 
-foodController.editFood = (req, res, next) => {
+foodController.editFood = async (req, res, next) => {
     const newFood = req.body;
+    console.log(req.body)
 //   const id = newFood? newFood.id : undefined;
-    const id = req.params.foodId;;
+    const id = req.params.foodId;
+    const ingredient_ids = await req.body.Ingredients.map(x => x.id);
+    const ingredients = await findManying(ingredient_ids);
     findOne(id).then(food => {
         if (food) {
+            console.log(food)
             Object.assign(food, newFood);
+            food.setIngredients(ingredients)
             food.save().then(food => res.json(food)).catch(next);
         }else {
             res.status(404).send();
@@ -90,6 +107,22 @@ foodController.deleteFood = (req, res, next) => {
         }
     }).catch(next);
 };
+
+foodController.removeIngredientsFromFood = async (req, res, next) => {
+    const food_id = req.params.foodId;
+    const ingredient_ids = req.body.ingredientsId;
+
+    const ingredients = await findManying(ingredient_ids);
+
+    findOne(food_id).then(food => {
+        if(food){
+             food.removeIngredients(ingredients).then(food => res.json(food)).catch(next);
+        } else {
+            res.status(404).send();
+        }
+    }).catch(next);
+}
+
 foodController.addIngredienttoFood = async (req, res, next) => {
     const food_id = req.params.foodId;
     const ingredient_id = req.params.ingredientId;
@@ -104,6 +137,21 @@ foodController.addIngredienttoFood = async (req, res, next) => {
         }
     }).catch(next);
 }
+  
+foodController.addManyIngredientstoFood = async (req, res, next) => {
+    const food_id = req.params.foodId;
+    const ingredient_ids = req.body.ingredientsId; // Assuming ingredient IDs are sent in the request body as an array
+    const ingredients = await findManying(ingredient_ids);
+
+    findOne(food_id).then(food => {
+        if(food){
+             food.addIngredients(ingredients).then(food => res.json(food)).catch(next);
+        } else {
+            res.status(404).send();
+        }
+    }).catch(next);
+  };
+  
 
 foodController.findFoodsByIngredients = (req, res, next) => {
     const ingredientIds = req.body.ingredientIds;

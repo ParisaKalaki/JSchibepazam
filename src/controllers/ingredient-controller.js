@@ -24,6 +24,11 @@ ingredientController.createIngredient = async (req, res, next) => {
 
 ingredientController.get = (req, res, next) => {
     Ingredient.findAll().then(Ingredients => {
+        const count = Ingredients.length; // Get the actual count of items
+        const range = `0-${count - 1}/*`; // Calculate the range
+  
+        res.setHeader('Content-Range', `bytes ${range}`); // Set the Content-Range header
+        res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
         res.json(Ingredients)
     }).catch(next);
 };
@@ -43,7 +48,7 @@ ingredientController.getIngredient = (req, res, next) => {
 ingredientController.editIngredient = (req, res, next) => {
     const newIngredient = req.body;
 //   const id = newFood? newFood.id : undefined;
-    const id = req.params.ingredientId;;
+    const id = req.params.ingredientId;
     findOne(id).then(ingredient => {
         if (ingredient) {
             Object.assign(ingredient, newIngredient);
